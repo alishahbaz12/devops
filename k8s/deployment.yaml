@@ -1,4 +1,3 @@
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -14,8 +13,9 @@ spec:
         app: flask
     spec:
       containers:
-      - name: flask-container
+      - name: flask-app
         image: flask-app:latest
+        imagePullPolicy: Never  # <-- IMPORTANT LINE
         ports:
         - containerPort: 5000
 ---
@@ -28,6 +28,6 @@ spec:
   selector:
     app: flask
   ports:
-  - port: 5000
-    targetPort: 5000
-    nodePort: 30007
+    - port: 5000
+      targetPort: 5000
+      nodePort: 30007
